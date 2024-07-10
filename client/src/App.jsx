@@ -6,6 +6,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { useSelector } from 'react-redux';
 import Dashboard from './pages/Dashboard';
+import TaskBoards from './pages/TaskBoardsPage';
+import TaskBoardsPage from './pages/TaskBoardsPage';
+
 
 function App() {
 
@@ -22,21 +25,24 @@ function App() {
   }
 
   return (
-    <div className='w-[100vw] h-full'>
+    <div className='w-[100vw] min-h-screen bg-gray-200 font-[Manrope]'>
       <Navbar />
 
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
 
-        <Route path='/' element={
+        <Route path='/' element={<Navigate to="/dashboard" replace />} />
+        
+        <Route path='/dashboard' element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
         } />
-        <Route path='/dashboard' element={
+
+        <Route path='/taskBoard' element={
           <ProtectedRoute>
-            <Dashboard />
+            <TaskBoardsPage />
           </ProtectedRoute>
         } />
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../services/operations/authAPI';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
+  const {pathname} = useLocation()
   const auth = useSelector((state)=>state.auth)
 
   const navigate = useNavigate();
@@ -19,14 +20,23 @@ const Navbar = () => {
     dispatch(logout(navigate));
   }
 
+
+
   return (
-    <nav className="bg-[#0c0c0cca] shadow-md py-3">
+    <nav className="bg-[#1d2125] shadow-md py-3">
       <div className="flex justify-between items-center max-w-[95%] mx-auto">
         <div className="flex items-center">
           <Link to={'/'}>
-          <img className="h-6" src="https://trello.com/assets/87e1af770a49ce8e84e3.gif" alt="Logo" />
+          <img className="h-4" src="https://trello.com/assets/87e1af770a49ce8e84e3.gif" alt="Logo" />
           </Link>
         </div>
+
+        {
+          auth?.token !== null && (<div className="flex items-center text-[#dfe5eb] gap-3">
+            <Link to={'/dashboard'}><p className={`px-2 py-1 hover:bg-[#29333e] ${pathname === '/dashboard' ? 'bg-[#29333e]' :'bg-transparent'} cursor-pointer rounded-lg`}>Projects</p></Link>
+            <Link to={'/taskBoard'}><p className={`px-2 py-1 hover:bg-[#29333e] ${pathname === '/taskBoard' ? 'bg-[#29333e]' :'bg-transparent'} cursor-pointer rounded-lg`}>Task Boards</p></Link>
+          </div>)
+        }
 
         <div className="flex items-center gap-4">
 
@@ -44,7 +54,7 @@ const Navbar = () => {
 
           {
             auth?.token !== null && <div className="relative">
-              <button onClick={toggleDropdown} className="relative z-10 block h-8 w-8 rounded-full overflow-hidden focus:outline-none">
+              <button onClick={toggleDropdown} className="relative z-10 block h-6 w-6 rounded-full overflow-hidden focus:outline-none">
                 <img className="h-full w-full object-cover" src={auth?.userData?.userImage} alt="Your Name" />
               </button>
 
