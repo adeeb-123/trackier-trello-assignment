@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 
 const userRoutes = require("./routes/User");
+const projectRoutes = require("./routes/Project");
+
 const database = require("./config/database");
 const cookieParser = require("cookie-parser");
 
@@ -21,6 +23,7 @@ app.use(
 );
 
 app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/project", projectRoutes);
 
 app.get("/", (req, res) => {
     return res.json({

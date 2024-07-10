@@ -20,7 +20,13 @@ const userSchema = new mongoose.Schema(
         },
         userImage: {
             type: String,
-        }
+        },
+        projectsCreated : [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Project" 
+            }
+        ]
     },
     { timestamps: true }
 );
