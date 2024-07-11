@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { getAllProjects } from '../services/operations/projectsAPI';
 import toast from 'react-hot-toast';
 import Loader from '../components/global/Loader';
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -31,7 +32,6 @@ const Dashboard = () => {
       };
 
       const projectsData = await getAllProjects(headers);
-      console.log("projectsData", projectsData)
 
       setAllProjects(projectsData);
       setLoading(false)
@@ -61,13 +61,15 @@ const Dashboard = () => {
               loading ? <Loader /> :
                 allProjects?.map((project, index) => {
                   return (
-                    <div key={index} className="bg-[url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/640x960/8ee8e0f6b4b19886cf7b5dd2d391296a/photo-1720122207974-0e950e7deb05.webp')] bg-cover bg-center h-[300px] relative text-white rounded-2xl cursor-pointer hover:shadow-2xl duration-200 transition-all overflow-hidden">
-                      <div className='w-[100%] h-[100%] absolute bg-[#3b3b3b8d] z-20'></div>
-                      <div className='z-30 text-white absolute h-[100%] p-4'>
-                        <h2 className='text-2xl font-semibold'>{project?.projectName}</h2>
-                        <p className='text-sm font-semibold mt-3'>{project?.projectDescription}</p>
+                    <Link to={`/project/${project._id}`}>
+                      <div key={index} className="bg-[url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/640x960/8ee8e0f6b4b19886cf7b5dd2d391296a/photo-1720122207974-0e950e7deb05.webp')] bg-cover bg-center h-[300px] relative text-white rounded-2xl cursor-pointer hover:shadow-2xl duration-200 transition-all overflow-hidden">
+                        <div className='w-[100%] h-[100%] absolute bg-[#3b3b3b8d] z-20'></div>
+                        <div className='z-30 text-white absolute h-[100%] p-4'>
+                          <h2 className='text-2xl font-semibold'>{project?.projectName}</h2>
+                          <p className='text-sm font-semibold mt-3'>{project?.projectDescription}</p>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   )
                 })
 

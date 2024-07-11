@@ -35,3 +35,18 @@ export const createProject = async (projectName, projectDescription, headers) =>
     }
     toast.dismiss(toastId);
 }
+
+export const getSingleProject = async (projectId, headers) => {
+    let result = {};
+    try {
+        const response = await apiConnector("GET", Projects_API.GetSingleProjects + "/" + projectId, null, headers)
+        if (!response.data.success) {
+            toast.error(response?.data?.message)
+        }
+        result = response?.data?.project
+
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+    return result
+}

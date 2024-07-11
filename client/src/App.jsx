@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import Dashboard from './pages/Dashboard';
 import TaskBoards from './pages/TaskBoardsPage';
 import TaskBoardsPage from './pages/TaskBoardsPage';
+import ProjectDetailPage from './pages/ProjectDetailPage';
+import TestDashboard from './pages/TestDashboard';
 
 
 function App() {
@@ -43,6 +45,12 @@ function App() {
         <Route path='/taskBoard' element={
           <ProtectedRoute>
             <TaskBoardsPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path='/project/:projectId' element={
+          <ProtectedRoute>
+            <ProjectDetailPage />
           </ProtectedRoute>
         } />
 

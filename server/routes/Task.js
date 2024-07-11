@@ -6,6 +6,6 @@ const { auth } = require("../middlewares/auth")
 
 router.post("/createTask", auth, createTask)
 router.get("/getAllUserTasks", auth, getAllUserTasks)
-router.get("/getProjectTasks/:projectId/tasks", auth, getProjectTasks)
+router.get("/getProjectTasks/:projectId", auth, getProjectTasks)
 
 module.exports = router

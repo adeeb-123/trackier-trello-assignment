@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import TaskContainer from './TaskContainer'
 import { useSelector } from 'react-redux'
-import { getAllUsersTasks } from '../../services/operations/taskAPI'
+import { getAllUsersTasks, getSingleProjectTasks } from '../../services/operations/taskAPI'
 
-const TaskBoard = () => {
+const TaskBoard = ({projectId}) => {
     const auth = useSelector((state) => state.auth)
 
     const [allUsersTask, setAllUsersTask] = useState({})
@@ -13,7 +13,6 @@ const TaskBoard = () => {
         setLoading(true)
 
         const token = auth?.token
-
         if (!token) {
             toast.error("No token found, please log in.");
             return;
@@ -27,7 +26,30 @@ const TaskBoard = () => {
             const allUsersTasks = await getAllUsersTasks(headers);
 
             setAllUsersTask(allUsersTasks);
-            setLoading(false)
+
+        } catch (error) {
+            toast.error("Error while fetching projects")
+        }
+        setLoading(false)
+    };
+
+    const SingleProjectTasks = async () => {
+        const token = auth?.token
+        
+        if (!token) {
+            toast.error("No token found, please log in.");
+            return;
+        }
+
+        try {
+            const headers = {
+                'Authorization': `${token}`
+            };
+
+            const taskData = await getSingleProjectTasks(projectId, headers);
+            console.log("projectAllTasks", taskData)
+
+            setAllUsersTask(taskData);
 
         } catch (error) {
             toast.error("Error while fetching projects")
@@ -35,7 +57,11 @@ const TaskBoard = () => {
     };
 
     useEffect(() => {
-        fetchAllUsersTasks();
+        if (projectId) {
+            SingleProjectTasks()
+        } else {
+            fetchAllUsersTasks();
+        }
     }, [1]);
 
     return (

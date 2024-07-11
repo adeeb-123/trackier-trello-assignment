@@ -8,8 +8,10 @@ export const Auth_API = {
 export const Projects_API = {
     CreateProject: BASE_URL + "/project/createProject",
     GetAllProjects: BASE_URL + "/project/getAllProjects",
+    GetSingleProjects : BASE_URL + "/project/getSingleProject"
 }
 
 export const Tasks_API = {
     GetAllUsersTasks: BASE_URL + "/task/getAllUserTasks",
+    GetSingleProjectsTasks: BASE_URL + "/task/getProjectTasks",
 }

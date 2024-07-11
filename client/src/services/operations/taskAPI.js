@@ -20,3 +20,18 @@ export const getAllUsersTasks = async (headers) => {
     return result;
 
 }
+
+export const getSingleProjectTasks = async (projectId, headers) => {
+    let result = {};
+    try {
+        const response = await apiConnector("GET", Tasks_API.GetSingleProjectsTasks + "/" + projectId, null, headers)
+        if (!response.data.success) {
+            toast.error(response?.data?.message)
+        }
+        result = response?.data?.groupedTasks
+
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+    return result
+}
