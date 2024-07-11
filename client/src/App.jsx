@@ -9,14 +9,12 @@ import Dashboard from './pages/Dashboard';
 import TaskBoards from './pages/TaskBoardsPage';
 import TaskBoardsPage from './pages/TaskBoardsPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
-import TestDashboard from './pages/TestDashboard';
 
 
 function App() {
 
   const ProtectedRoute = ({ children }) => {
     const auth = useSelector((state) => state.auth);
-    console.log('auth' , auth)
 
     if (auth?.token !== null) {
       return children;
@@ -35,7 +33,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
 
         <Route path='/' element={<Navigate to="/dashboard" replace />} />
-        
+
         <Route path='/dashboard' element={
           <ProtectedRoute>
             <Dashboard />

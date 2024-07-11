@@ -50,6 +50,17 @@ export function login(email, password, navigate) {
     }
 }
 
+export const fetchAllUsers = async () => {
+    let result = []
+    try {
+        const response = await apiConnector("GET", Auth_API.AllUsers)
+        result = response?.data?.allUsers
+
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+    return result;
+}
 
 export function logout(navigate) {
     return (dispatch) => {

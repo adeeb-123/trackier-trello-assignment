@@ -47,7 +47,6 @@ const TaskBoard = ({projectId}) => {
             };
 
             const taskData = await getSingleProjectTasks(projectId, headers);
-            console.log("projectAllTasks", taskData)
 
             setAllUsersTask(taskData);
 
@@ -71,7 +70,7 @@ const TaskBoard = ({projectId}) => {
                     {/* first column div */}
                     <TaskContainer title={"Backlog"} cards={allUsersTask?.Backlog} />
                     <TaskContainer title={"In Discussion"} cards={allUsersTask?.['In Discussion']} />
-                    <TaskContainer title={"In Progress"} cards={allUsersTask?.['In Progresss']} />
+                    <TaskContainer title={"In Progress"} cards={allUsersTask?.['In Progress']} />
                     <TaskContainer title={"Done"} cards={allUsersTask?.Done} />
                 </div>
             </div>
