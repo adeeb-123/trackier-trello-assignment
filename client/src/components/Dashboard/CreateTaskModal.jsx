@@ -74,9 +74,7 @@ const CreateTaskModal = ({ isOpen, onClose, projectId }) => {
             'Authorization': `${auth.token}`
         };
 
-        createTask(formData?.taskName, formData?.description, formData?.status, formData?.dueDate, formData?.assignedUser, formData?.projectId, tags, headers)
-
-        setFormData({ taskName: "",description: "",status: "Backlog",tags: [],dueDate: "",assignedUser: "",projectId: projectId })
+        createTask(formData?.taskName, formData?.description, formData?.status, formData?.dueDate, formData?.assignedUser, formData?.projectId, tags, headers, navigate)
     }
 
     useEffect(() => {

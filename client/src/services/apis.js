@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4000/api/v1'
+const BASE_URL = 'https://trackier-trello-assignment.onrender.com/api/v1'
 
 export const Auth_API = {
     Login: BASE_URL + "/auth/login",

@@ -36,7 +36,7 @@ export const getSingleProjectTasks = async (projectId, headers) => {
     return result
 }
 
-export const createTask = async (taskName, description, status, dueDate, assignedUser, projectId, tags, headers) => {
+export const createTask = async (taskName, description, status, dueDate, assignedUser, projectId, tags, headers , navigate) => {
     const toastId = toast.loading('Loading...')
     try {
         const response = await apiConnector("POST", Tasks_API.CreateTask, { taskName, description, status, dueDate, assignedUser, projectId, tags }, headers)
@@ -44,6 +44,7 @@ export const createTask = async (taskName, description, status, dueDate, assigne
             toast.error(response?.data?.message)
         }
         toast.success("Task Created Successfully");
+        window.location.reload();
 
     } catch (error) {
         toast.error(error?.response?.data?.message);

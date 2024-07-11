@@ -21,7 +21,7 @@ export const getAllProjects = async (headers) => {
 
 }
 
-export const createProject = async (projectName, projectDescription, headers) => {
+export const createProject = async (projectName, projectDescription, headers , navigate) => {
     const toastId = toast.loading('Loading...')
     try {
         const response = await apiConnector("POST", Projects_API.CreateProject, { projectName, projectDescription }, headers)
@@ -29,7 +29,7 @@ export const createProject = async (projectName, projectDescription, headers) =>
             toast.error(response?.data?.message)
         }
         toast.success("Project Created Successfully");
-
+        navigate('/')
     } catch (error) {
         toast.error(error?.response?.data?.message);
     }

@@ -37,7 +37,7 @@ const CreateProjectModal = ({ isOpen, onClose }) => {
         const headers = {
             'Authorization': `${auth.token}`
         };
-        createProject(formData?.projectName, formData?.projectDescription, headers)
+        createProject(formData?.projectName, formData?.projectDescription, headers , navigate)
     }
 
 
