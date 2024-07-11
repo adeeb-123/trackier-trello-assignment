@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        satus: {
+        status: {
             type: String,
             required: true
         },
