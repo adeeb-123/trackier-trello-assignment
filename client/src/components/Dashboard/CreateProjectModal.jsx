@@ -1,9 +1,13 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { createProject } from '../../services/operations/projectsAPI'
+import toast from 'react-hot-toast'
 
 const CreateProjectModal = ({ isOpen, onClose }) => {
+
+    const auth = useSelector((state) => state.auth)
 
     const [formData, setFormData] = useState({
         projectName: "",
@@ -30,7 +34,10 @@ const CreateProjectModal = ({ isOpen, onClose }) => {
             return null;
         }
 
-        dispatch(login(formData?.projectName, formData?.projectDescription, navigate));
+        const headers = {
+            'Authorization': `${auth.token}`
+        };
+        createProject(formData?.projectName, formData?.projectDescription, headers)
     }
 
 

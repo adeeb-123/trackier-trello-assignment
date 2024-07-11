@@ -31,7 +31,6 @@ const Signup = () => {
             toast.error("Password don't match")
             return null;
         }
-
         dispatch(signUp(formData.userName, formData.email, formData.password, formData.confirmPassword, navigate))
 
 

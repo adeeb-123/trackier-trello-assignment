@@ -1,52 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TaskContainer from './TaskContainer'
+import { useSelector } from 'react-redux'
+import { getAllUsersTasks } from '../../services/operations/taskAPI'
 
 const TaskBoard = () => {
+    const auth = useSelector((state) => state.auth)
 
-    const backlogCards = [
-        {
-            projectName : "Trading Platform",
-            taskName : "Create Admin of broker",
-            description : "I want a dedicated dashboard for the broker also , make sure you do it",
-            satus : "Backlog",
-            tags : ["Important" , "Design"],
-            dueDate : "2024-07-10",
-            assignedUser: {
-                userName : "Adeeb Ahmad",
-                email : "adeebsiddiqui77@gmail.com",
-                userImage : "https://api.dicebear.com/5.x/initials/svg?seed=Adeeb Ahmad"
-            }
+    const [allUsersTask, setAllUsersTask] = useState({})
+    const [loading, setLoading] = useState(false)
 
-        },
-        {
-            projectName : "Ecommerce Application",
-            taskName : "Create Admin of broker",
-            description : "I want a dedicated dashboard for the broker also , make sure you do it",
-            satus : "Backlog",
-            tags : ["Important" , "Design"],
-            dueDate : "2024-07-10",
-            assignedUser: {
-                userName : "Adeeb Ahmad",
-                email : "adeebsiddiqui77@gmail.com",
-                userImage : "https://api.dicebear.com/5.x/initials/svg?seed=Adeeb Ahmad"
-            }
+    const fetchAllUsersTasks = async () => {
+        setLoading(true)
 
-        },
-    ]
+        const token = auth?.token
 
-  return (
-    <div className='w-[100%]'>
-        <div className='w-[95%] mx-auto'>
-            <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-8'>
-                {/* first column div */}
-                <TaskContainer title={"Backlog"} cards={backlogCards}/>
-                <TaskContainer title={"In Discussion"} cards={backlogCards}/>
-                <TaskContainer title={"In Progress"} cards={backlogCards}/>
-                <TaskContainer title={"Done"} cards={backlogCards}/>
+        if (!token) {
+            toast.error("No token found, please log in.");
+            return;
+        }
+
+        try {
+            const headers = {
+                'Authorization': `${token}`
+            };
+
+            const allUsersTasks = await getAllUsersTasks(headers);
+
+            setAllUsersTask(allUsersTasks);
+            setLoading(false)
+
+        } catch (error) {
+            toast.error("Error while fetching projects")
+        }
+    };
+
+    useEffect(() => {
+        fetchAllUsersTasks();
+    }, [1]);
+
+    return (
+        <div className='w-[100%]'>
+            <div className='w-[95%] mx-auto'>
+                <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-8'>
+                    {/* first column div */}
+                    <TaskContainer title={"Backlog"} cards={allUsersTask?.Backlog} />
+                    <TaskContainer title={"In Discussion"} cards={allUsersTask?.['In Discussion']} />
+                    <TaskContainer title={"In Progress"} cards={allUsersTask?.['In Progresss']} />
+                    <TaskContainer title={"Done"} cards={allUsersTask?.Done} />
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default TaskBoard

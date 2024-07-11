@@ -2,11 +2,12 @@ import React from 'react'
 import { BsCheckCircle } from "react-icons/bs";
 
 const TaskCards = ({ card, key }) => {
+    console.log("card" , card)
     return (
         <div className='rounded-2xl overflow-hidden bg-white p-4 flex flex-col gap-6 cursor-pointer hover:shadow-lg duration-200 transition-all' key={key}>
             <div className='flex items-center justify-between'>
                 <div className='bg-blue-500 w-[30%] h-[8px] rounded-full'></div>
-                <h3 className='text-xs font-bold hover:underline cursor-pointer'>{card?.projectName}</h3>
+                <h3 className='text-xs font-bold hover:underline cursor-pointer'>{card?.projectId?.projectName}</h3>
             </div>
             <div className='flex items-center gap-3'>
                 <BsCheckCircle className='text-lg font-extrabold text-gray-500' />
